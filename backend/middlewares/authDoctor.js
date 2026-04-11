@@ -3,15 +3,16 @@ import jwt from 'jsonwebtoken'
 // DOCTOR authentication middleware
 const authDoctor = async (req,res,next) => {
     try{
-       
-        const {dToken} = req.headers
-       if(!dToken){
+        // Express normalizes header names to lowercase.
+        // Support both custom `dtoken` header and Bearer token.
+        const dToken = req.headers.dtoken 
+        if(!dToken){
             return res.json({success: false, message: ' Not Authorized Login Again'})
-       }
+        }
 
-       const token_decode = jwt.verify(dToken,process.env.JWT_SECRET)
+        const token_decode = jwt.verify(dToken,process.env.JWT_SECRET)
 
-       req.docId = token_decode.id
+        req.docId = token_decode.id
 
         next()
     }

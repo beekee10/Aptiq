@@ -5,10 +5,19 @@ const AppContextProvider = (props) => {
     const currency = '₹'
 
     const calculateAge = (dob) => {
+        if (!dob || dob === 'Not Selected') return 'N/A'
+
         const today = new Date()
-        const birthDate= new Date(dob)
+        const birthDate = new Date(dob)
+        if (Number.isNaN(birthDate.getTime())) return 'N/A'
 
         let age = today.getFullYear() - birthDate.getFullYear()
+        const monthDiff = today.getMonth() - birthDate.getMonth()
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--
+        }
+
+        if (age < 0) return 'N/A'
         return age
     }
 
