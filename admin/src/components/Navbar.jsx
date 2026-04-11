@@ -2,9 +2,11 @@ import React, { useContext } from 'react'
 import { AdminContext } from '../context/admin/AdminContext'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import { DoctorContext } from '../context/doctor/DoctorContext'
 
 const Navbar = () => {
     const { Atoken, setAtoken } = useContext(AdminContext)
+    const { dToken, setDtoken } = useContext(DoctorContext)
 
     const navigate = useNavigate()
 
@@ -12,6 +14,10 @@ const Navbar = () => {
         navigate('/')  // this will send to home page
         Atoken &&  setAtoken('')
         Atoken && localStorage.removeItem('Atoken')
+
+        dToken &&  setDtoken('')
+        dToken && localStorage.removeItem('dToken')
+
     }
 
     return (

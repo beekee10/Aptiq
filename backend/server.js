@@ -21,7 +21,7 @@ app.use(express.json())
 app.use(cors())         // use to connect frontend to backend
 
 // api endpoint
-app.use('/api/admin/',adminRouter)
+app.use('/api/admin',adminRouter)
 // localhost:4000/api/admin
 app.use('/api/doctor',doctorRouter)
 

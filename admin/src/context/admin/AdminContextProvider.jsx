@@ -10,7 +10,8 @@ const AdminContextProvider = (props) => {
     //console.log(localStorage.getItem("Atoken"))
 
     const [doctors,setDoctors] = useState([])   // this array we will store all the doctors
-
+    const [appointments, setAppointments] = useState([]) // this will store all the appointments
+    const [dashData,setDashData] = useState(false)
     
     // this will give list of all the doctors
     const getAllDoctors = async () => {
@@ -51,13 +52,66 @@ const AdminContextProvider = (props) => {
 
     }
 
+    const getAllAppointments = async () => {
 
+      try{
+
+        const {data} = await axios.get(backendUrl + '/api/admin/appointments'  ,{headers:{Authorization : `Bearer ${Atoken}` }})
+        
+        if(data.success){
+          setAppointments(data.appointments)
+        }
+        else{
+          toast.error(data.message)
+        }
+      }catch(error){
+        toast.error(error.message)
+      }
+    }
+
+  const cancelAppointment = async (appointmentId) => {
+      try{
+
+        const {data} = await axios.post(backendUrl + '/api/admin/cancel-appointment',{appointmentId},{headers:{Authorization: `Bearer ${Atoken}` }})
+
+        if(data.success){
+          toast.success(data.message)
+          getAllAppointments()
+        }
+        else{
+          toast.error(data.message)
+        }
+      }catch(error){
+        toast.error(error.message)
+      }
+    }
+
+  const getDashData = async () => {                                           
+      try{
+        // this was breaking the code
+          const {data} = await axios.get(backendUrl + '/api/admin/dashboard', { headers: { Authorization: `Bearer ${Atoken}`}}) // token willl go like this because in authAdmin token is expexting as => [const authHeader = req.headers.authorization ]
+          
+          if(data.success) {
+            setDashData(data.dashData)
+            console.log(data.dashData)
+          }
+          else{
+            toast.error(data.message)
+          }
+
+      }catch(error){
+        toast.error(error.message)
+      }
+  }
 
   const value = {
     Atoken,setAtoken,
     backendUrl,
     doctors , getAllDoctors,
-    changeAvailability
+    changeAvailability,
+    appointments,setAppointments,getAllAppointments,
+    cancelAppointment,
+    dashData,getDashData
   };
 
   return (

@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { AdminContext } from '../context/admin/AdminContext';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
+import { DoctorContext } from '../context/doctor/DoctorContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -10,6 +12,9 @@ const Login = () => {
     const [password, setPassword] = React.useState("");
 
     const {setAtoken ,backendUrl} = useContext(AdminContext)
+    const {setDtoken} = useContext(DoctorContext)
+
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,6 +29,8 @@ const Login = () => {
                 if(data.success){   // this means our login info was correct and we can have token with help of data.token
                     localStorage.setItem("Atoken", data.token)
                     setAtoken(data.token)
+
+                    navigate('/admin-dashboard')
                 }
                 else{  
                     // if logn info is Incoreect we will show it with help of 'toastify'
@@ -31,15 +38,25 @@ const Login = () => {
 
                 }
             }
-            
+            else{
 
-            
+                const {data} = await axios.post(backendUrl + '/api/doctor/login', {email,password})
+                
+                if(data.success){   
+                    localStorage.setItem("Dtoken", data.token)
+                    setDtoken(data.token)
+
+                    navigate('/doctor-dashboard')
+                }
+                else{
+                    toast.error(data.message)
+                }
+            }
+        
        }
        catch(error){
         console.log(error)
-       }
-
-        
+       }  
     }
 
     return (
@@ -60,7 +77,7 @@ const Login = () => {
                 <input
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
-                    placeholder="type here"
+                    placeholder="type email"
                     className="border border-gray-200 rounded w-full p-2 mt-1 outline-indigo-500"
                     type="email"
                     required
@@ -73,7 +90,7 @@ const Login = () => {
                 <input
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
-                    placeholder="type here"
+                    placeholder="type password"
                     className="border border-gray-200 rounded w-full p-2 mt-1 outline-indigo-500"
                     type="password"
                     required
