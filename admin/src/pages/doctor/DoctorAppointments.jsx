@@ -85,29 +85,28 @@ const DoctorAppointments = () => {
                                 </p>
 
                                 {/* Actions */}
-                                <div className='flex items-center gap-2 justify-start sm:justify-center'>
-                                    {
-                                        item.cancelled
-                                            ? <p className='text-red-500 text-sm font-medium'>Cancelled</p>
-                                            : item.isCompleted
-                                                ? <p className='text-green-600 text-sm font-medium'>Completed</p>
-                                                : (
-                                                    <>
-                                                        <button 
-                                                            onClick={() => cancelAppointment(item._id)}
-                                                            className='p-2 bg-red-50 hover:bg-red-100 rounded-full transition'
-                                                        >
-                                                            <img className='w-5' src={assets.cancel_icon} alt="" />
-                                                        </button>
+                                <div className='flex items-center gap-2 justify-start sm:justify-center'>{
+                                    item.cancelled
+                                        ? <p className='text-red-500 text-sm font-medium'>Cancelled</p>
+                                        : item.isCompleted
+                                            ? <p className='text-green-600 text-sm font-medium'>Completed</p>
+                                            : (
+                                                <>
+                                                <button 
+                                                    onClick={() => cancelAppointment(item._id)}
+                                                    className='p-2 bg-red-50 hover:bg-red-100 rounded-full transition'
+                                                >
+                                                    <img className='w-5' src={assets.cancel_icon} alt="" />
+                                                </button>
 
-                                                        <button 
-                                                            onClick={() => completeAppointment(item._id)}
-                                                            className='p-2 bg-green-50 hover:bg-green-100 rounded-full transition'
-                                                        >
-                                                            <img className='w-5' src={assets.tick_icon} alt="" />
-                                                        </button>
-                                                    </>
-                                                )
+                                                <button 
+                                                     onClick={() => completeAppointment(item._id)}
+                                                    className='p-2 bg-green-50 hover:bg-green-100 rounded-full transition'
+                                                >
+                                                    <img className='w-5' src={assets.tick_icon} alt="" />
+                                                </button>
+                                                </>
+                                            )
                                     }
                                 </div>
 

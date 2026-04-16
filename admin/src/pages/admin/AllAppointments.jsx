@@ -90,18 +90,18 @@ const AllAppointments = () => {
 
                             {/* Action */}
                             {
-                                item.cancelled ? (
+                                item.cancelled ? 
                                     <span className='text-red-500 text-sm font-semibold'>
                                         Cancelled
                                     </span>
-                                ) : (
-                                    <img
+                                : item.isCompleted 
+                                    ? <p className="text-green-500 text-sm font-semibold" >Completed</p>
+                                    : <img
                                         onClick={() => cancelAppointment(item._id)}
                                         className='w-8 cursor-pointer hover:scale-110 transition'
                                         src={assets.cancel_icon}
                                         alt=""
                                     />
-                                )
                             }
 
                         </div>
