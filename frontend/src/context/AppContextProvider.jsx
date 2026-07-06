@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 const AppContextProvider = (props) => {
 
     const feeSymbol = `₹`;
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const backendUrl = import.meta.env.VITE_BACKEND_URL ? import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '') : ''
     console.log("Backend URL:", backendUrl)
 
     const [doctors, setDoctors] = useState([])
