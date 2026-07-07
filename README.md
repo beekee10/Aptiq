@@ -14,9 +14,9 @@ Aptiq is a full-stack doctor appointment booking platform built with the MERN st
 
 You can access the live instances of the project below:
 
-* **Patient Portal (Frontend)**: `[Insert Live Frontend Link Here]`
-* **Admin & Doctor Dashboard**: `[Insert Live Admin Link Here]`  *(e.g., https://your-admin-panel.vercel.app)*
-* **API Server (Backend)**: [https://aptiq-4guo.onrender.com/](https://aptiq-4guo.onrender.com/)
+* **Patient Portal (Frontend)**: `https://aptiq-frontend.vercel.app/`
+* **Admin & Doctor Dashboard**: `https://aptiq-admin.vercel.app/` 
+* **API Server (Backend)**: `https://aptiq-4guo.onrender.com/`
 
 ---
 
